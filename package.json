@@ -1,0 +1,11 @@
+{
+  "name": "zargparse",
+  "version": "1.0.0",
+  "description": "zero dependencies argument parser",
+  "main": "argparse.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "a very smart guy",
+  "license": "ISC"
+}
