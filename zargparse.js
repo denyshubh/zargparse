@@ -123,7 +123,9 @@ function argparse(args, conf) {
 
 class zparser { 
   constructor () {
-    this.conf = { options: [] };
+    this.conf = { 
+      options: [ { name: 'h', vname: 'help', help: 'print this message' } ] 
+    };
   }
 
   build (t_options, t_json_path) {
