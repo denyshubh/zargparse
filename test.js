@@ -4,7 +4,6 @@ const opts = [
   { name: 's', vname: 'source', hasValue: true, mandatory: true, help: 'abc is cool'},
   { name: 'v', vname: 'verbose', help: 'abc is cool'},
   { name: 'a', vname: 'all', help: 'abc is cool'},
-  { name: 'h', vname: 'help', help: 'print this message' }
 ]
 
 zparser.build(opts);

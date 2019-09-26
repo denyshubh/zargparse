@@ -138,7 +138,7 @@ class zparser {
       author: conf_json.author,
       version: conf_json.version,
       description: conf_json.description,
-      options: options
+      options: this.conf.options.concat(options)
     }
   }
 
