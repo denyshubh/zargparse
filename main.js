@@ -17,6 +17,7 @@ function print_help(conf) {
       throw `Bad format for argument ${e.key}`;
       return -1;
     }
+    // TODO: for each line consider the length of the first part to calculate the number of tabs needed to avoid formatting error
     let estr = `\t --${e.vname}${e.name ? ", -"+e.name : ""} \t ${e.help} ${e.mandatory ? "(mandatory)": ""}`;
     opt_str.push(estr);
   }
@@ -60,7 +61,7 @@ function argparse(args, conf) {
     if (s.charAt(1)=="-") /* vname format: --x=v */ {
       expl_idx = s.indexOf("=");
       key = (expl_idx != -1 ? s.substr(0, expl_idx) : s);
-      key = key.replace(/-/g, "");
+      //key = key.replace(/-/g, "");
         // value = s.substr(expl_idx+1);
     }
     else /* short format: x v */ {
@@ -122,23 +123,22 @@ function argparse(args, conf) {
 }
 
 class zparser { 
-  constructor () {
-    this.conf = { 
-      options: [ { name: 'h', vname: 'help', help: 'print this message' } ] 
-    };
-  }
-
-  build (t_options, t_json_path) {
-    let options = t_options ? t_options : [];
-    let json_path = t_json_path ? t_json_path : "./package.json"; 
-    let conf_json = require(json_path);
+  constructor (t_options, t_json_path) {
+    // options
+    const options = t_options ? t_options : [];
+    options.push({ name: 'h', vname: 'help', help: 'print this message' })
+    // json_path ??
+    const json_path = t_json_path ? t_json_path : "./package.json"; 
+    const conf_json = require(json_path);
     // TODO check conf_json is in the correct format
+    
+    // prepare the configuration object
     this.conf = {
       name: conf_json.name,
       author: conf_json.author,
       version: conf_json.version,
       description: conf_json.description,
-      options: this.conf.options.concat(options)
+      options: options
     }
   }
 
@@ -156,5 +156,5 @@ class zparser {
     return argparse(args, this.conf);
   }
 }
-module.exports = new zparser();
 
+module.exports = zparser;
